@@ -1,0 +1,23 @@
+{
+  "name": "finalprj",
+  "version": "1.0.0",
+  "description": "A modern Vue 3 project for FIN-LAB-1 with Node v24 LTS support",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "engines": {
+    "node": ">=20.0.0 || >=24.0.0"
+  },
+  "dependencies": {
+    "vue": "^3.5.13",
+    "vue-router": "^4.5.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.2.1",
+    "vite": "^6.2.0"
+  }
+}

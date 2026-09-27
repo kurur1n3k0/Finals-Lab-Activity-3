@@ -1,0 +1,61 @@
+# ==============================================================================
+# Apache .htaccess configuration for Vue.js Single Page Application (Vue Router 4)
+# Target Location: http://esquivellabs.com/vuejs-routing/
+# Course / Lab: FIN-LAB-1 VueJS Routing and Navigation Activity
+# ==============================================================================
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # Define base directory for the subfolder deployment:
+  RewriteBase /vuejs-routing/
+
+  # If an existing physical file is directly requested, serve it directly
+  RewriteRule ^index\.html$ - [L]
+
+  # If the requested file or directory does not exist physically on disk:
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+
+  # Fallback: direct all client-side routes (/blog, /gallery, etc.) to index.html
+  RewriteRule . /vuejs-routing/index.html [L]
+</IfModule>
+
+# ------------------------------------------------------------------------------
+# Prevent Directory Browsing & MultiViews Conflicts
+# ------------------------------------------------------------------------------
+Options -Indexes
+Options -MultiViews
+
+# ------------------------------------------------------------------------------
+# Modern MIME Types for Vite ES Modules & Assets
+# ------------------------------------------------------------------------------
+<IfModule mod_mime.c>
+  AddType text/javascript .js .mjs
+  AddType text/css .css
+  AddType image/svg+xml .svg
+  AddType application/json .json
+</IfModule>
+
+# ------------------------------------------------------------------------------
+# Gzip Compression (mod_deflate)
+# ------------------------------------------------------------------------------
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css
+  AddOutputFilterByType DEFLATE text/javascript application/javascript application/json
+  AddOutputFilterByType DEFLATE image/svg+xml
+</IfModule>
+
+# ------------------------------------------------------------------------------
+# Caching Policy: Never cache index.html, cache hashed assets
+# ------------------------------------------------------------------------------
+<IfModule mod_headers.c>
+  <Files "index.html">
+    Header set Cache-Control "no-cache, no-store, must-revalidate"
+    Header set Pragma "no-cache"
+    Header set Expires 0
+  </Files>
+  <FilesMatch "\.(js|css|png|jpg|jpeg|gif|svg|woff|woff2)$">
+    Header set Cache-Control "max-age=31536000, public, immutable"
+  </FilesMatch>
+</IfModule>
